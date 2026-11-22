@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Karta udzielonej kwalifikowanej pierwszej pomocy</title>
+<style>
+:root{--red:#b90000;--border:#ccc;--blue:#5865f2}
+*{box-sizing:border-box}
+body{margin:0;background:#e9edf2;color:#17212b;font:15px Arial,Helvetica,sans-serif}
+.page{max-width:1100px;margin:24px auto;background:#fff;padding:26px;border-radius:14px;box-shadow:0 8px 30px #17212b18;border:1px solid #e1e5ea}
+h1{text-align:center;color:var(--red);font-size:27px;line-height:1.25;margin:14px 0 26px;text-transform:uppercase;letter-spacing:.35px}
+.section-title{background:linear-gradient(100deg,#b90000,#d01818);color:#fff;font-weight:bold;padding:12px 14px;border-radius:7px;margin:23px 0 14px;box-shadow:0 2px 5px #b9000018}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 12px}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.field{min-width:0}
+label,.field-label{display:block;font-weight:bold;margin:3px 0 5px}
+input[type=text],input[type=date],input[type=number],textarea,select{width:100%;border:1px solid #c7cdd4;border-radius:6px;padding:10px 11px;font:15px Arial;background:#fff;min-height:39px;transition:border-color .15s,box-shadow .15s}input:focus,textarea:focus{outline:none;border-color:#b90000;box-shadow:0 0 0 3px #b9000014}
+textarea{min-height:44px;resize:vertical}
+.radio-stack{display:flex;flex-direction:column;gap:5px;padding:3px 5px}
+.choice{display:flex;align-items:center;gap:8px;font-weight:normal;margin:0}
+input[type=checkbox],input[type=radio]{accent-color:var(--red);width:15px;height:15px}
+.avpu{display:grid;gap:11px}
+.avpu label{border:1px solid var(--border);border-radius:6px;padding:11px 13px;background:#fafafa;font-weight:normal;display:flex;align-items:center;gap:12px;margin:0}
+.avpu b{color:var(--red);font-size:21px;min-width:20px}
+.param{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.capillary{display:flex;flex-direction:column;gap:5px}
+.abcde-row{display:grid;grid-template-columns:65px 1fr;gap:12px;margin:12px 0}
+.letter{border:2px solid var(--red);border-radius:6px;color:var(--red);font-size:24px;font-weight:bold;display:flex;justify-content:center;align-items:flex-start;padding-top:9px}
+.check-panel{border:1px solid #e0e3e7;background:#fafbfc;border-radius:7px;padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:9px 18px}
+.check-panel label{font-weight:normal;margin:0;display:flex;align-items:center;gap:7px}
+.subhead{font-weight:bold;margin:0 0 5px}
+.actions{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+button{border:0;border-radius:7px;padding:13px 18px;font-weight:bold;font-size:15px;cursor:pointer}
+.primary{background:var(--blue);color:white;flex:1;min-height:50px;font-size:16px;box-shadow:0 4px 10px #5865f233}
+.secondary{background:#e8e8e8;color:#222}
+.signature{text-align:center;max-width:500px;margin:24px auto 32px}
+.signature input{text-align:center}
+@media(max-width:700px){.page{margin:0;padding:15px;border-radius:0}.grid,.grid.three,.grid.four,.param{grid-template-columns:1fr}.abcde-row{grid-template-columns:48px 1fr}.check-panel{grid-template-columns:1fr}h1{font-size:21px}}
+@media print{body{background:#fff}.page{margin:0;max-width:none;box-shadow:none;padding:10mm}.actions{display:none}input,textarea{border:1px solid #888!important} .section-title,.letter,.avpu label{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+
+/* Dark graphite redesign */
+:root{--red:#e7e9ec;--border:#343a42;--blue:#d8dde3}
+body{background:#080a0d;color:#f1f3f5;font-family:Inter,Segoe UI,Arial,sans-serif}
+.page{background:#11151a;border:1px solid #2a3038;box-shadow:0 18px 50px #0008;border-radius:18px;color:#f1f3f5}
+h1{color:#f3f5f7;letter-spacing:1.2px}
+.section-title{background:#e9edf1;color:#101419;border-radius:8px;box-shadow:none;font-weight:800;letter-spacing:.25px}
+label,.field-label,.subhead{color:#e6e9ed}
+input[type=text],input[type=date],input[type=number],textarea,select{background:#0b0e12;color:#f4f6f8;border:1px solid #343b44;border-radius:8px}
+input:focus,textarea:focus{border-color:#dbe1e7;box-shadow:0 0 0 3px #dbe1e71a}
+input[type=checkbox],input[type=radio]{accent-color:#e6edf3}
+.check-panel{background:#171c22;border:1px solid #303741;border-radius:9px}
+.avpu label{background:#171c22;border:1px solid #303741;color:#e7ebef;border-radius:9px}
+.avpu b{color:#fff}
+.letter{border-color:#e5e9ee;color:#f5f7f9;background:#171c22;border-radius:9px}
+.signature input{background:#0b0e12;color:#fff}
+.primary{background:#f0f2f5;color:#11151a;box-shadow:0 5px 18px #ffffff12;border-radius:9px}
+.secondary{background:#262d35;color:#e8edf2}
+@media print{body{background:#fff;color:#111}.page{background:#fff;color:#111;box-shadow:none;border:0}.section-title{background:#ddd;color:#111}.check-panel,.avpu label{background:#f8f8f8;color:#111}.letter{background:#fff;color:#111}}
+</style>
+</head>
+<body>
+<main class="page">
+<h1>KARTA UDZIELONEJ KWALIFIKOWANEJ PIERWSZEJ POMOCY</h1>
+<form id="kppForm">
+<div class="section-title">Data i miejsce zdarzenia</div>
+<div class="grid">
+<div class="field"><label for="eventDate">Data zdarzenia</label><input id="eventDate" type="date"></div>
+<div class="field"><label for="eventPlace">Miejsce zdarzenia</label><input id="eventPlace" type="text"></div>
+<div class="field" style="grid-column:1/-1"><label for="rescuer">Nazwisko i imię ratownika</label><input id="rescuer" type="text"></div>
+</div>
+
+<div class="section-title">Informacja o poszkodowanym</div>
+<div class="grid three">
+<div class="field"><span class="field-label">Płeć</span><div class="radio-stack">
+<label class="choice"><input type="radio" name="sex" value="Kobieta"> Kobieta</label>
+<label class="choice"><input type="radio" name="sex" value="Mężczyzna"> Mężczyzna</label>
+</div></div>
+<div class="field"><label for="birth">Data urodzenia</label><input id="birth" type="date"></div>
+<div class="field"><label for="surname">Nazwisko</label><input id="surname" type="text"></div>
+<div class="field"><label for="firstname">Imię</label><input id="firstname" type="text"></div>
+<div class="field" style="grid-column:1/-1"><label for="notes">Uwagi</label><textarea id="notes"></textarea></div>
+</div>
+
+<div class="section-title">AVPU</div>
+<div class="avpu">
+<label><input type="radio" name="avpu" value="A"><b>A</b> <strong>Alert</strong> – Przytomny</label>
+<label><input type="radio" name="avpu" value="V"><b>V</b> <strong>Verbal</strong> – Reaguje na głos</label>
+<label><input type="radio" name="avpu" value="P"><b>P</b> <strong>Pain</strong> – Reaguje na ból</label>
+<label><input type="radio" name="avpu" value="U"><b>U</b> <strong>Unresponsive</strong> – Nieprzytomny</label>
+</div>
+
+<div class="section-title">Parametry</div>
+<div class="param">
+<div class="field"><label for="spo2">SpO₂ (%)</label><input id="spo2" type="number" min="0" max="100"></div>
+<div class="field"><label for="pulse">Tętno (/min)</label><input id="pulse" type="number" min="0"></div>
+<div class="field"><label for="breath">Oddech (/min)</label><input id="breath" type="number" min="0"></div>
+<div class="field"><span class="field-label">Kapilarny</span><div class="capillary">
+<label class="choice"><input type="radio" name="capillary" value="≤ 2 s"> ≤ 2 s</label>
+<label class="choice"><input type="radio" name="capillary" value="> 2 s"> > 2 s</label>
+</div></div>
+</div>
+
+<div class="section-title">Wywiad SAMPLE</div>
+<div class="field"><label for="sampleS">S — Objawy / symptomy</label><textarea id="sampleS"></textarea></div>
+<div class="field"><label for="sampleA">A — Alergie</label><textarea id="sampleA"></textarea></div>
+<div class="field"><label for="sampleM">M — Medykamenty</label><textarea id="sampleM"></textarea></div>
+<div class="field"><label for="sampleP">P — Przebyte choroby</label><textarea id="sampleP"></textarea></div>
+<div class="field"><label for="sampleL">L — Posiłek</label><textarea id="sampleL"></textarea></div>
+<div class="field"><label for="sampleE">E — Opis zdarzenia</label><textarea id="sampleE"></textarea></div>
+
+<div class="section-title">ABC</div>
+<div class="abcde-row"><div class="letter">A</div><div><div class="subhead">Drożność dróg oddechowych</div><div class="check-panel">
+<label><input type="checkbox"> drożne</label><label><input type="checkbox"> udrożniono: bezprzyrządowo</label>
+<label><input type="checkbox"> udrożniono: odessano</label><label><input type="checkbox"> rurka U-G</label>
+<label><input type="checkbox"> przyrząd nadgłośniowy</label>
+</div></div></div>
+<div class="abcde-row"><div class="letter">B</div><div><div class="subhead">Oddech</div><div class="check-panel">
+<label><input type="checkbox"> obecny</label><label><input type="checkbox"> brak prawidłowego oddechu</label>
+<label><input type="checkbox"> tlenoterapia bierna</label><label><input type="checkbox"> tlenoterapia czynna</label>
+<label><input type="checkbox"> respirator</label>
+</div></div></div>
+<div class="abcde-row"><div class="letter">C</div><div><div class="subhead">Krążenie</div><div class="check-panel">
+<label><input type="checkbox"> obecne</label><label><input type="checkbox"> centralizacja</label>
+<label><input type="checkbox"> brak</label>
+</div></div></div>
+
+<div class="section-title">Rodzaj obrażeń</div>
+<div class="check-panel">
+<label><input type="checkbox"> odmrożenie</label><label><input type="checkbox"> skażenie</label>
+<label><input type="checkbox"> podtopienie</label><label><input type="checkbox"> zatrucie wziewne</label>
+<label><input type="checkbox"> obrażenia głowy</label><label><input type="checkbox"> podejrzenie kręgosłupa</label>
+<label><input type="checkbox"> podejrzenie klatki piersiowej</label><label><input type="checkbox"> podejrzenie jamy brzusznej</label>
+<label><input type="checkbox"> podejrzenie miednicy</label><label><input type="checkbox"> złamania / kończyn</label>
+<label><input type="checkbox"> zwichnięcia / skręcenia</label><label><input type="checkbox"> rany / krwotoki</label>
+<label><input type="checkbox"> amputacja</label><label><input type="checkbox"> zmiażdżenie</label>
+</div>
+
+<div class="section-title">Rodzaj objawów</div>
+<div class="check-panel">
+<label><input type="checkbox"> drgawki</label><label><input type="checkbox"> nudności / wymioty</label>
+<label><input type="checkbox"> zaburzenia zachowania</label><label><input type="checkbox"> ból w klatce piersiowej</label>
+<label><input type="checkbox"> anafilaksja</label><label><input type="checkbox"> ciąża</label>
+<label><input type="checkbox"> wstrząs</label><label><input type="checkbox"> duszność</label>
+<label><input type="checkbox"> omdlenie</label><label><input type="checkbox"> wychłodzenie</label>
+<label><input type="checkbox"> zatrzymanie krążenia</label>
+</div>
+<div class="field"><label for="otherSymptoms">Inne</label><textarea id="otherSymptoms"></textarea></div>
+
+<div class="section-title">Postępowanie</div>
+<div class="check-panel">
+<label><input type="checkbox"> wsparcie psychiczne</label><label><input type="checkbox"> termoizolacja</label>
+<label><input type="checkbox"> pozycja bezpieczna</label><label><input type="checkbox"> na wznak</label>
+<label><input type="checkbox"> usunięcie ciał obcych</label><label><input type="checkbox"> uciśnięcie klatki piersiowej</label>
+<label><input type="checkbox"> użycie AED</label><label><input type="checkbox"> ograniczenie ruchów kręgosłupa</label>
+<label><input type="checkbox"> unieruchomienie złamań / zwichnięć</label><label><input type="checkbox"> nosze deska</label>
+<label><input type="checkbox"> kołnierz szyjny</label><label><input type="checkbox"> pas do stabilizacji</label>
+<label><input type="checkbox"> opatrunek wentylacyjny / hemostatyczny</label><label><input type="checkbox"> zabezpieczenie amputowanych tkanek</label>
+<label><input type="checkbox"> opatrunek osłaniający</label><label><input type="checkbox"> opatrunek uciskowy</label>
+<label><input type="checkbox"> staza taktyczna</label><label><input type="checkbox"> monitorowanie poszkodowanego</label>
+</div>
+
+<div class="section-title">Podpis</div>
+<div class="signature"><label for="signature">Podpis ratownika</label><input id="signature" type="text" placeholder="Wpisz stopień, imię i nazwisko"></div>
+<div class="actions">
+<button type="button" class="primary" onclick="sendCard()">🚑 Wyślij kartę</button>
+</div>
+</form>
+</main>
+<script>
+const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1572050600676565196/QWy72m9GkadEDYR2EFkJB12CDMsdrMS0_VnxmrLB0VTaqiiCCbtDMoiTWREA6wjQTVZb';
+
+async function sendCard(){
+ const form=document.getElementById('kppForm');
+ const val=id=>{const el=document.getElementById(id);return el && el.value.trim()?el.value.trim():'—'};
+ const checkedRadio=name=>form.querySelector('input[name="'+name+'"]:checked')?.value||'Nie podano';
+ const selected=panel=>[...panel.querySelectorAll('input[type="checkbox"]:checked')].map(x=>x.parentElement.textContent.trim());
+ const abcRows=[...document.querySelectorAll('.abcde-row')];
+ const abcText=abcRows.map(row=>{
+   const letter=row.querySelector('.letter')?.textContent.trim()||'';
+   const title=row.querySelector('.subhead')?.textContent.trim()||'';
+   const items=selected(row);
+   return `**${letter} — ${title.toUpperCase()}**
+${items.map(x=>'☑ '+x).join('
+')||'—'}`;
+ }).join('
+
+');
+ const sections=[...document.querySelectorAll('.section-title')];
+ function getSectionChecks(title){
+   const h=sections.find(x=>x.textContent.trim().toLowerCase()===title.toLowerCase());
+   if(!h)return [];
+   let node=h.nextElementSibling; const found=[];
+   while(node && !node.classList.contains('section-title')){
+     found.push(...node.querySelectorAll('input[type="checkbox"]:checked'));
+     node=node.nextElementSibling;
+   }
+   return found.map(x=>x.parentElement.textContent.trim());
+ }
+ const injuries=getSectionChecks('Rodzaj obrażeń');
+ const symptoms=getSectionChecks('Rodzaj objawów');
+ const actions=getSectionChecks('Postępowanie');
+ const sample=`**S:** ${val('sampleS')}
+**A:** ${val('sampleA')}
+**M:** ${val('sampleM')}
+**P:** ${val('sampleP')}
+**L:** ${val('sampleL')}
+**E:** ${val('sampleE')}`;
+ const fields=[
+  {name:'📅 DATA I MIEJSCE ZDARZENIA',value:`**Data:** ${val('eventDate')}
+**Miejsce:** ${val('eventPlace')}
+**Ratownik:** ${val('rescuer')}`},
+  {name:'👤 POSZKODOWANY',value:`**Płeć:** ${checkedRadio('sex')}
+**Data urodzenia:** ${val('birth')}
+**Nazwisko:** ${val('surname')}
+**Imię:** ${val('firstname')}
+**Uwagi:** ${val('notes')}`},
+  {name:'🧠 AVPU',value:checkedRadio('avpu')},
+  {name:'❤️ PARAMETRY',value:`**SpO₂:** ${val('spo2')} %
+**Tętno:** ${val('pulse')} /min
+**Oddech:** ${val('breath')} /min
+**Kapilarny:** ${checkedRadio('capillary')}`},
+  {name:'📋 SAMPLE',value:sample},
+  {name:'📋 ABC',value:abcText},
+  {name:'🩸 RODZAJ OBRAŻEŃ',value:injuries.map(x=>'☑ '+x).join('
+')||'—'},
+  {name:'⚠️ RODZAJ OBJAWÓW',value:symptoms.map(x=>'☑ '+x).join('
+')||'—'},
+  {name:'Inne objawy',value:val('otherSymptoms')},
+  {name:'🩺 POSTĘPOWANIE',value:actions.map(x=>'☑ '+x).join('
+')||'—'},
+  {name:'✍️ PODPIS',value:`**Ratownik:** ${val('signature')}`}
+ ].map(f=>({...f,inline:false}));
+ const button=document.querySelector('.primary');
+ if(!DISCORD_WEBHOOK_URL||DISCORD_WEBHOOK_URL==='WKLEJ_TUTAJ_WEBHOOK'){
+  alert('Webhook nie jest ustawiony. W kodzie uzupełnij DISCORD_WEBHOOK_URL.');return;
+ }
+ button.disabled=true;button.textContent='Wysyłanie…';
+ try{
+  const payload={embeds:[{color:0x49245f,fields,footer:{text:'Karta KPP • PSP'},timestamp:new Date().toISOString()}]};
+  const response=await fetch(DISCORD_WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  if(!response.ok)throw new Error('HTTP '+response.status);
+  alert('Karta została wysłana na Discorda.');
+ }catch(error){alert('Nie udało się wysłać karty. Sprawdź webhook i połączenie. Błąd: '+error.message);}
+ finally{button.disabled=false;button.textContent='🚑 Wyślij kartę';}
+}
+</script>
+</body>
+</html>
