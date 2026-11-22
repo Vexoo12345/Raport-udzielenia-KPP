@@ -82,7 +82,7 @@ input[type=checkbox],input[type=radio]{accent-color:#e6edf3}
 <div class="field"><label for="firstname">Imię</label><input id="firstname" type="text"></div>
 <div class="field" style="grid-column:1/-1"><label for="notes">Uwagi</label><textarea id="notes"></textarea></div>
 </div>
-K
+
 <div class="section-title">AVPU</div>
 <div class="avpu">
 <label><input type="radio" name="avpu" value="A"><b>A</b> <strong>Alert</strong> – Przytomny</label>
@@ -182,11 +182,8 @@ async function sendCard(){
    const title=row.querySelector('.subhead')?.textContent.trim()||'';
    const items=selected(row);
    return `**${letter} — ${title.toUpperCase()}**
-${items.map(x=>'☑ '+x).join('
-')||'—'}`;
- }).join('
-
-');
+${items.map(x=>'☑ '+x).join('\n')||'—'}`;
+ }).join('\n\n');
  const sections=[...document.querySelectorAll('.section-title')];
  function getSectionChecks(title){
    const h=sections.find(x=>x.textContent.trim().toLowerCase()===title.toLowerCase());
@@ -223,17 +220,14 @@ ${items.map(x=>'☑ '+x).join('
 **Kapilarny:** ${checkedRadio('capillary')}`},
   {name:'📋 SAMPLE',value:sample},
   {name:'📋 ABC',value:abcText},
-  {name:'🩸 RODZAJ OBRAŻEŃ',value:injuries.map(x=>'☑ '+x).join('
-')||'—'},
-  {name:'⚠️ RODZAJ OBJAWÓW',value:symptoms.map(x=>'☑ '+x).join('
-')||'—'},
+  {name:'🩸 RODZAJ OBRAŻEŃ',value:injuries.map(x=>'☑ '+x).join('\n')||'—'},
+  {name:'⚠️ RODZAJ OBJAWÓW',value:symptoms.map(x=>'☑ '+x).join('\n')||'—'},
   {name:'Inne objawy',value:val('otherSymptoms')},
-  {name:'🩺 POSTĘPOWANIE',value:actions.map(x=>'☑ '+x).join('
-')||'—'},
+  {name:'🩺 POSTĘPOWANIE',value:actions.map(x=>'☑ '+x).join('\n')||'—'},
   {name:'✍️ PODPIS',value:`**Ratownik:** ${val('signature')}`}
  ].map(f=>({...f,inline:false}));
  const button=document.querySelector('.primary');
- if(!DISCORD_WEBHOOK_URL||DISCORD_WEBHOOK_URL==='WKLEJ_TUTAJ_WEBHOOK'){
+ if(!DISCORD_WEBHOOK_URL||DISCORD_WEBHOOK_URL==='https://discord.com/api/webhooks/1573464471064543333/j1El0VKjYrCyUMPpH639W_9afN76V6FMRK5t_zbhBt3orlmMvBI6OrfmhHT6rEZSOnex'){
   alert('Webhook nie jest ustawiony. W kodzie uzupełnij DISCORD_WEBHOOK_URL.');return;
  }
  button.disabled=true;button.textContent='Wysyłanie…';
