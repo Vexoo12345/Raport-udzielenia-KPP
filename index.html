@@ -227,7 +227,7 @@ ${items.map(x=>'☑ '+x).join('\n')||'—'}`;
   {name:'✍️ PODPIS',value:`**Ratownik:** ${val('signature')}`}
  ].map(f=>({...f,inline:false}));
  const button=document.querySelector('.primary');
- if(!DISCORD_WEBHOOK_URL||DISCORD_WEBHOOK_URL==='https://discord.com/api/webhooks/1573464471064543333/j1El0VKjYrCyUMPpH639W_9afN76V6FMRK5t_zbhBt3orlmMvBI6OrfmhHT6rEZSOnex'){
+ if(!DISCORD_WEBHOOK_URL'https://discord.com/api/webhooks/1573464471064543333/j1El0VKjYrCyUMPpH639W_9afN76V6FMRK5t_zbhBt3orlmMvBI6OrfmhHT6rEZSOnex'){
   alert('Webhook nie jest ustawiony. W kodzie uzupełnij DISCORD_WEBHOOK_URL.');return;
  }
  button.disabled=true;button.textContent='Wysyłanie…';
