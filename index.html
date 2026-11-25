@@ -74,7 +74,7 @@ button:disabled{opacity:.65;cursor:wait}
     <div>
       <div class="kicker">Panel ratowniczy • PSP</div>
       <h1>Karta udzielonej kwalifikowanej pierwszej pomocy</h1>
-      <p>Wypełnij sekcje formularza, a raport zostanie wysłany na Discord jako uporządkowany embed.</p>
+      <p>Wypełnij formularz, a karta zostanie wysłana na Discord jako czytelny raport.</p>
     </div>
     <div class="hero-mark">🚑</div>
   </header>
@@ -242,86 +242,92 @@ button:disabled{opacity:.65;cursor:wait}
     <button class="reset" type="reset" form="kppForm">Wyczyść formularz</button>
     <button class="send" id="sendButton" type="button" onclick="sendKPP()">🚑 WYŚLIJ KARTĘ NA DISCORD</button>
   </div>
-  <p class="footnote">Karta KPP • Panel PSP • Wysyłka jako embed Discord</p>
+  <p class="footnote">Karta KPP • Panel PSP • lokalna wysyłka przez bezpieczny serwer</p>
 </div>
 
 <script>
-const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1573464471064543333/j1El0VKjYrCyUMPpH639W_9afN76V6FMRK5t_zbhBt3orlmMvBI6OrfmhHT6rEZSOnex";
+const SEND_ENDPOINT = "/api/send-kpp";
 const byId = id => document.getElementById(id);
+
 const valueOf = id => {
   const el = byId(id);
   return el && el.value.trim() ? el.value.trim() : "Nie podano";
 };
-const radioOf = name => document.querySelector(`input[name="${name}"]:checked`)?.value || "Nie podano";
-const checksOf = id => [...byId(id).querySelectorAll('input[type="checkbox"]:checked')].map(el => el.value);
-const checkedLines = values => values.length ? values.map(v => "☑ " + v).join("\n") : "Nie zaznaczono";
 
-function clip(text, max=1024) {
-  const s = String(text || "Nie podano");
-  return s.length > max ? s.slice(0, max-1) + "…" : s;
+const radioOf = name =>
+  document.querySelector(`input[name="${name}"]:checked`)?.value || "Nie podano";
+
+const checksOf = id =>
+  [...byId(id).querySelectorAll('input[type="checkbox"]:checked')].map(el => el.value);
+
+const checkedLines = values =>
+  values.length ? values.map(value => "☑ " + value).join("\n") : "Nie zaznaczono";
+
+function clip(text, max = 1024) {
+  const value = String(text ?? "Nie podano");
+  return value.length > max ? value.slice(0, max - 1) + "…" : value;
 }
+
 function discordField(name, value) {
-  return {name:clip(name,256), value:clip(value,1024), inline:false};
+  return {
+    name: clip(name, 256),
+    value: clip(value, 1024),
+    inline: false
+  };
 }
+
 async function sendKPP() {
   const button = byId("sendButton");
-  if (!DISCORD_WEBHOOK_URL.startsWith("https://discord.com/api/webhooks/")) {
-    alert("Webhook nie jest ustawiony prawidłowo w kodzie HTML.");
-    return;
-  }
+  if (button.disabled) return;
+
   const abc = [
     "**A — DROŻNOŚĆ DRÓG ODDECHOWYCH**\n" + checkedLines(checksOf("abcA")),
     "**B — ODDECH**\n" + checkedLines(checksOf("abcB")),
     "**C — KRĄŻENIE**\n" + checkedLines(checksOf("abcC"))
   ].join("\n\n");
-  const sample = [
-    "**S — Objawy / symptomy:** " + valueOf("sampleS"),
-    "**A — Alergie:** " + valueOf("sampleA"),
-    "**M — Medykamenty:** " + valueOf("sampleM"),
-    "**P — Przebyte choroby:** " + valueOf("sampleP"),
-    "**L — Posiłek:** " + valueOf("sampleL"),
-    "**E — Opis zdarzenia:** " + valueOf("sampleE")
-  ].join("\n");
+
+  // Osobne pola SAMPLE zapobiegają ucinaniu całego wywiadu do jednego limitu 1024 znaków.
   const fields = [
     discordField("📅 DATA I MIEJSCE ZDARZENIA", `**Data:** ${valueOf("eventDate")}\n**Miejsce:** ${valueOf("eventPlace")}\n**Ratownik:** ${valueOf("rescuer")}`),
-    discordField("👤 POSZKODOWANY", `**Płeć:** ${valueOf("sex")}\n**Data urodzenia:** ${valueOf("birth")}\n**Nazwisko:** ${valueOf("surname")}\n**Imię:** ${valueOf("firstname")}\n**Uwagi:** ${valueOf("notes")}`),
-    discordField("🧠 AVPU", radioOf("avpu")),
+    discordField("👤 POSZKODOWANY", `**Płeć:** ${valueOf("sex")}\n**Data urodzenia:** ${valueOf("birth")}\n**Nazwisko:** ${valueOf("surname")}\n**Imię:** ${valueOf("firstname")}`),
+    discordField("📝 UWAGI O POSZKODOWANYM", valueOf("notes")),
+    discordField("🧠 OCENA AVPU", radioOf("avpu")),
     discordField("❤️ PARAMETRY", `**SpO₂:** ${valueOf("spo2")}\n**Tętno:** ${valueOf("pulse")} /min\n**Oddech:** ${valueOf("breath")} /min\n**Powrót kapilarny:** ${radioOf("capillary")}`),
-    discordField("📋 WYWIAD SAMPLE", sample),
+    discordField("📋 SAMPLE — S: OBJAWY / SYMPTOMY", valueOf("sampleS")),
+    discordField("📋 SAMPLE — A: ALERGIE", valueOf("sampleA")),
+    discordField("📋 SAMPLE — M: MEDYKAMENTY", valueOf("sampleM")),
+    discordField("📋 SAMPLE — P: PRZEBYTE CHOROBY", valueOf("sampleP")),
+    discordField("📋 SAMPLE — L: POSIŁEK", valueOf("sampleL")),
+    discordField("📋 SAMPLE — E: OPIS ZDARZENIA", valueOf("sampleE")),
     discordField("🫁 OCENA ABC", abc),
     discordField("🩸 RODZAJ OBRAŻEŃ", checkedLines(checksOf("injuries"))),
     discordField("⚠️ RODZAJ OBJAWÓW", checkedLines(checksOf("symptoms"))),
-    discordField("INNE OBJAWY", valueOf("otherSymptoms")),
+    discordField("➕ INNE OBJAWY", valueOf("otherSymptoms")),
     discordField("🩺 POSTĘPOWANIE", checkedLines(checksOf("actions"))),
     discordField("✍️ PODPIS RATOWNIKA", valueOf("signature"))
   ];
-  const embed = {
-    color: 0x71449a,
-    title: "🚑 KARTA UDZIELONEJ KWALIFIKOWANEJ PIERWSZEJ POMOCY",
-    fields,
-    footer: {text: "PSP • Karta KPP"},
-    timestamp: new Date().toISOString()
-  };
+
   button.disabled = true;
   button.textContent = "WYSYŁANIE…";
+
   try {
-    const response = await fetch(DISCORD_WEBHOOK_URL + "?wait=true", {
+    const response = await fetch(SEND_ENDPOINT, {
       method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({embeds:[embed]})
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ fields })
     });
-    if (!response.ok) {
-      const detail = await response.text();
-      throw new Error("Discord HTTP " + response.status + (detail ? " — " + detail.slice(0,180) : ""));
+
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || !result.ok) {
+      throw new Error(result.error || `Błąd serwera HTTP ${response.status}`);
     }
-    alert("Karta została wysłana na Discorda.");
+
+    alert(result.sent > 1
+      ? `Karta KPP została wysłana na Discorda w ${result.sent} częściach.`
+      : "Karta KPP została wysłana na Discorda.");
   } catch (error) {
-    alert("Nie udało się wysłać karty. Sprawdź webhook i połączenie internetowe.\n" + error.message);
-  } finally {
-    button.disabled = false;
-    button.textContent = "🚑 WYŚLIJ KARTĘ NA DISCORD";
-  }
-}
-</script>
-</body>
-</html>
+    const message = error && error.message ? error.message : String(error);
+    if (message.includes("Failed to fetch") || message.includes("NetworkError")) {
+      alert("Nie można połączyć się z lokalnym serwerem karty. Uruchom plik START.bat i korzystaj ze strony otwartej pod adresem http://127.0.0.1:3000.");
+    } else {
+      alert("Nie udało się wysłać kart
