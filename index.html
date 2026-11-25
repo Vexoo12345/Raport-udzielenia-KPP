@@ -330,4 +330,13 @@ async function sendKPP() {
     if (message.includes("Failed to fetch") || message.includes("NetworkError")) {
       alert("Nie można połączyć się z lokalnym serwerem karty. Uruchom plik START.bat i korzystaj ze strony otwartej pod adresem http://127.0.0.1:3000.");
     } else {
-      alert("Nie udało się wysłać kart
+      alert("Nie udało się wysłać karty KPP.\n\n" + message);
+    }
+  } finally {
+    button.disabled = false;
+    button.textContent = "🚑 WYŚLIJ KARTĘ NA DISCORD";
+  }
+}
+</script>
+</body>
+</html>
