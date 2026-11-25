@@ -359,6 +359,107 @@ async function sendKPP() {
         return;
     }
 
+
+/* =========================================
+       WYSŁANIE DO DISCORDA
+    ========================================= */
+
+    try {
+
+        const response =
+            await fetch(
+                DISCORD_WEBHOOK_URL,
+                {
+
+                    method:
+                        "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify(
+                            payload
+                        )
+
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Discord HTTP " +
+                response.status
+            );
+
+        }
+
+
+        /* =====================================
+           ZAPIS LOKALNY
+        ===================================== */
+
+        localStorage.setItem(
+            "Karta_Udzielenia_KPP",
+            JSON.stringify(
+                karta,
+                null,
+                2
+            )
+        );
+
+
+        /* =====================================
+           KOMUNIKAT
+        ===================================== */
+
+        const status =
+            document.getElementById(
+                "sendStatus"
+            );
+
+
+        status.textContent =
+            "✓ Karta IZZ została wysłana na Discord.";
+
+        status.classList.add(
+            "active"
+        );
+
+
+        alert(
+            "Karta IZZ została wysłana na Discord."
+        );
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Błąd wysyłania do Discord:",
+            error
+        );
+
+
+        alert(
+            "Nie udało się wysłać karty IZZ na Discord.\n\n" +
+            "Sprawdź adres Webhooka oraz konfigurację Discord."
+        );
+
+    }
+
+}
+
+
+
+
+
 </script>
 </body>
 </html>
